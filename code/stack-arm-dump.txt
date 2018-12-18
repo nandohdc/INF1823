@@ -1,0 +1,95 @@
+
+stack-arm:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <soma>:
+   0:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+   4:	e28db000 	add	fp, sp, #0
+   8:	e24dd00c 	sub	sp, sp, #12
+   c:	e50b0008 	str	r0, [fp, #-8]
+  10:	e50b100c 	str	r1, [fp, #-12]
+  14:	e51b2008 	ldr	r2, [fp, #-8]
+  18:	e51b300c 	ldr	r3, [fp, #-12]
+  1c:	e0823003 	add	r3, r2, r3
+  20:	e1a00003 	mov	r0, r3
+  24:	e28bd000 	add	sp, fp, #0
+  28:	e49db004 	pop	{fp}		; (ldr fp, [sp], #4)
+  2c:	e12fff1e 	bx	lr
+
+00000030 <incrementa2>:
+  30:	e92d4800 	push	{fp, lr}
+  34:	e28db004 	add	fp, sp, #4
+  38:	e24dd010 	sub	sp, sp, #16
+  3c:	e50b0010 	str	r0, [fp, #-16]
+  40:	e3a03002 	mov	r3, #2
+  44:	e50b3008 	str	r3, [fp, #-8]
+  48:	e51b1008 	ldr	r1, [fp, #-8]
+  4c:	e51b0010 	ldr	r0, [fp, #-16]
+  50:	ebfffffe 	bl	0 <soma>
+  54:	e1a03000 	mov	r3, r0
+  58:	e1a00003 	mov	r0, r3
+  5c:	e24bd004 	sub	sp, fp, #4
+  60:	e8bd8800 	pop	{fp, pc}
+
+00000064 <main>:
+  64:	e92d4800 	push	{fp, lr}
+  68:	e28db004 	add	fp, sp, #4
+  6c:	e24dd008 	sub	sp, sp, #8
+  70:	e3a00001 	mov	r0, #1
+  74:	ebfffffe 	bl	30 <incrementa2>
+  78:	e50b0008 	str	r0, [fp, #-8]
+  7c:	e51b1008 	ldr	r1, [fp, #-8]
+  80:	e59f0010 	ldr	r0, [pc, #16]	; 98 <main+0x34>
+  84:	ebfffffe 	bl	0 <print>
+  88:	e3a03000 	mov	r3, #0
+  8c:	e1a00003 	mov	r0, r3
+  90:	e24bd004 	sub	sp, fp, #4
+  94:	e8bd8800 	pop	{fp, pc}
+  98:	00000000 	andeq	r0, r0, r0
+
+Disassembly of section .rodata:
+
+00000000 <.rodata>:
+   0:	6572204f 	ldrbvs	r2, [r2, #-79]!	; 0xffffffb1
+   4:	746c7573 	strbtvc	r7, [ip], #-1395	; 0xfffffa8d
+   8:	206f6461 	rsbcs	r6, pc, r1, ror #8
+   c:	203aa9c3 	eorscs	sl, sl, r3, asr #19
+  10:	0a206425 	beq	8190ac <main+0x819048>
+	...
+
+Disassembly of section .comment:
+
+00000000 <.comment>:
+   0:	43434700 	movtmi	r4, #14080	; 0x3700
+   4:	5228203a 	eorpl	r2, r8, #58	; 0x3a
+   8:	62707361 	rsbsvs	r7, r0, #-2080374783	; 0x84000001
+   c:	206e6169 	rsbcs	r6, lr, r9, ror #2
+  10:	2e332e36 	mrccs	14, 1, r2, cr3, cr6, {1}
+  14:	38312d30 	ldmdacc	r1!, {r4, r5, r8, sl, fp, sp}
+  18:	6970722b 	ldmdbvs	r0!, {r0, r1, r3, r5, r9, ip, sp, lr}^
+  1c:	65642b31 	strbvs	r2, [r4, #-2865]!	; 0xfffff4cf
+  20:	31753962 	cmncc	r5, r2, ror #18
+  24:	2e362029 	cdpcs	0, 3, cr2, cr6, cr9, {1}
+  28:	20302e33 	eorscs	r2, r0, r3, lsr lr
+  2c:	37313032 			; <UNDEFINED> instruction: 0x37313032
+  30:	36313530 			; <UNDEFINED> instruction: 0x36313530
+	...
+
+Disassembly of section .ARM.attributes:
+
+00000000 <.ARM.attributes>:
+   0:	00002e41 	andeq	r2, r0, r1, asr #28
+   4:	61656100 	cmnvs	r5, r0, lsl #2
+   8:	01006962 	tsteq	r0, r2, ror #18
+   c:	00000024 	andeq	r0, r0, r4, lsr #32
+  10:	06003605 	streq	r3, [r0], -r5, lsl #12
+  14:	09010806 	stmdbeq	r1, {r1, r2, fp}
+  18:	12020a01 	andne	r0, r2, #4096	; 0x1000
+  1c:	15011404 	strne	r1, [r1, #-1028]	; 0xfffffbfc
+  20:	18031701 	stmdane	r3, {r0, r8, r9, sl, ip}
+  24:	1a011901 	bne	46430 <main+0x463cc>
+  28:	1e011c02 	cdpne	12, 0, cr1, cr1, cr2, {0}
+  2c:	Address 0x0000002c is out of bounds.
+
